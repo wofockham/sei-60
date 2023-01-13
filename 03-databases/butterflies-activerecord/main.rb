@@ -15,6 +15,9 @@ ActiveRecord::Base.logger = Logger.new(STDERR)
 class Butterfly < ActiveRecord::Base
 end
 
+class Plant < ActiveRecord::Base
+end
+
 get '/' do
     erb :home
 end
@@ -52,6 +55,7 @@ get '/butterflies/:id/edit' do
     erb :butterflies_edit
 end
 
+# UPDATE
 post '/butterflies/:id' do
     butterfly = Butterfly.find params[:id]
     butterfly.name = params[:name]
@@ -61,10 +65,60 @@ post '/butterflies/:id' do
     redirect to("/butterflies/#{ params[:id ] }") # GET request to SHOW
 end
 
+# DELETE
 get '/butterflies/:id/delete' do
     butterfly = Butterfly.find params[:id]
     butterfly.destroy
     redirect to('/butterflies')
+end
+
+# Plants CRUD #######################################################
+# INDEX
+get '/plants' do
+    @plants = Plant.all
+    erb :plants_index
+end
+
+# NEW
+get '/plants/new' do
+    erb :plants_new
+end
+
+# CREATE
+post '/plants' do
+    plant = Plant.new
+    plant.name = params[:name]
+    plant.image = params[:image]
+    plant.save
+    redirect to("/plants/#{ plant.id }")
+end
+
+# SHOW
+get '/plants/:id' do
+    @plant = Plant.find params[:id]
+    erb :plants_show
+end
+
+# EDIT
+get '/plants/:id/edit' do
+    @plant = Plant.find params[:id]
+    erb :plants_edit
+end
+
+# UPDATE
+post '/plants/:id' do
+    plant = Plant.find params[:id]
+    plant.name = params[:name]
+    plant.image = params[:image]
+    plant.save
+    redirect to("/plants/#{ plant.id }")
+end
+
+# DELETE
+get '/plants/:id/delete' do
+    plant = Plant.find params[:id]
+    plant.destroy
+    redirect to('/plants')
 end
 
 after do
