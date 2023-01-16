@@ -13,9 +13,11 @@ ActiveRecord::Base.logger = Logger.new(STDERR)
 
 # Model: a class that is backed by a database
 class Butterfly < ActiveRecord::Base
+    belongs_to :plant, :optional => true
 end
 
 class Plant < ActiveRecord::Base
+    has_many :butterflies
 end
 
 get '/' do
@@ -39,6 +41,7 @@ post '/butterflies' do
     butterfly.name = params[:name]
     butterfly.family = params[:family]
     butterfly.image = params[:image]
+    butterfly.plant_id = params[:plant_id]
     butterfly.save
     redirect to("/butterflies/#{ butterfly.id }") # GET request -- SHOW
 end
@@ -61,6 +64,7 @@ post '/butterflies/:id' do
     butterfly.name = params[:name]
     butterfly.family = params[:family]
     butterfly.image = params[:image]
+    butterfly.plant_id = params[:plant_id]
     butterfly.save
     redirect to("/butterflies/#{ params[:id ] }") # GET request to SHOW
 end
