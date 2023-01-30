@@ -1,14 +1,22 @@
-// // Later: use functions and make this interactive
+const fetchFact = function () {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://numbersapi.com/random/trivia?json');
+    xhr.send();
+    
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState !== 4) {
+            return; // too soon!
+        }
 
-const xhr = new XMLHttpRequest();
-xhr.open('GET', 'http://numbersapi.com/random/trivia');
-xhr.send(); // This line is asynchronous
+        const data = JSON.parse( xhr.responseText ); // turn the string into a JS object
 
-xhr.onreadystatechange = function () {
-    if (xhr.readyState !== 4) {
-        return; // too soon!
-    }
+        console.log(data);
 
-    console.log('the ready state changed', xhr.readyState, xhr.responseText);
+        const p = document.createElement('p');
+        p.innerText = data.text;
+        document.body.appendChild(p);
+    };
 };
 
+document.getElementById('fetch').addEventListener('click', fetchFact);
+fetchFact(); // First fact for free
