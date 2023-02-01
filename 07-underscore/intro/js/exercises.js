@@ -57,3 +57,29 @@ console.log(total);
 // .reduce() also works for objects
 
 // .find() //////////////////////////////////////////////////////////
+const divisibleByFive = function (n) {
+    console.log('considering', n);
+    return n % 5 === 0;
+}
+
+const fivey = _(nums).find(divisibleByFive); // 5
+console.log(fivey);
+
+// .filter() ////////////////////////////////////////////////////////
+const allFives = _(nums).filter(divisibleByFive);
+console.log( allFives );
+
+// .reject() ////////////////////////////////////////////////////////
+const notFives = _(nums).reject(divisibleByFive);
+console.log(notFives);
+
+// .pluck() /////////////////////////////////////////////////////////
+const bros = [
+    {name: 'Groucho', instrument: 'guitar', disposition: 'surly'},
+    {name: 'Harpo', instrument: 'harp', disposition: 'angelic'},
+    {name: 'Chico', instrument: 'piano', disposition: 'lecherous'},
+];
+
+console.table(bros);
+
+console.log( _(bros).pluck('instrument') );
