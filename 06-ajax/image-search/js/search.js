@@ -9,7 +9,9 @@ const searchFlickr = function (keywords) {
         text: keywords,
         format: 'json',
         nojsoncallback: 1 // don't bother looking this up: JSONP
-    }).done(showImages);
+    }).done(showImages).done(function (info) {
+        console.log(info);
+    });
 };
 
 const showImages = function (results) {
@@ -40,5 +42,13 @@ $(document).ready(function () {
 
         const searchTerms = $('#query').val();
         searchFlickr(searchTerms);
+    });
+
+    $(window).on('scroll', function () {
+        const scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
+        if (scrollBottom < 500) { // adjust this value to whatever works for you
+            const searchTerms = $('#query').val();
+            searchFlickr(searchTerms);
+        }
     });
 });
