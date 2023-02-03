@@ -10,4 +10,18 @@ def fibonacci_iterative(n)
     b
 end
 
+def fibonacci_recursive(n)
+    if n <= 2
+        1
+    else
+        fibonacci_recursive(n-1) + fibonacci_recursive(n-2)
+    end
+end
+
+# Bonus homework:
+# Make this faster
+
+# Option 1: Memoisation
+# Option 2: Iterative recursion (call the function only once per iteration)
+
 binding.irb
