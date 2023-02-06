@@ -6,7 +6,6 @@ class Weather extends Component {
     super();
     // What data is this component responsible for, which can change over time:
     this.state = {
-      city: '', // this will be set by SearchForm
       weatherData: null // this will be populated via AJAX
     };
     this.fetchWeather = this.fetchWeather.bind(this);
