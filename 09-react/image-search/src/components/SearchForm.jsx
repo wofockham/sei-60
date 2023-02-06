@@ -1,32 +1,19 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class SearchForm extends Component {
-    constructor() {
-        super();
-        this.state = {
-            query: ''
-        };
-        this._handleSubmit = this._handleSubmit.bind(this);
-        this._handleInput = this._handleInput.bind(this);
-    }
+const SearchForm = function (props) {
+    const [query, setQuery] = useState('');
 
-    _handleSubmit(event) {
-        event.preventDefault();
-        this.props.onSubmit(this.state.query);
-    }
+    const _handleSubmit = function (e) {
+        e.preventDefault();
+        props.onSubmit(query);
+    };
 
-    _handleInput(event) {
-        this.setState({query: event.target.value});
-    }
-
-    render() {
-        return (
-            <form onSubmit={ this._handleSubmit }>
-                <input type="search" required placeholder="butterfly" onChange={ this._handleInput } />
-                <input type="submit" value={ `Search for ${ this.state.query }` } />
-            </form>
-        );
-    }
-}
+    return (
+        <form onSubmit={ _handleSubmit }>
+            <input type="search" placeholder="butterfly" onChange={ (e) => setQuery(e.target.value) } />
+            <input type="submit" value={ `Search for ${ query }` } />
+        </form>
+    );
+};
 
 export default SearchForm;
