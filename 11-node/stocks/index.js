@@ -4,10 +4,12 @@ const quote = require('stock-quote');
 
 const server = express();
 server.set('view-engine', ejs);
+server.use(express.static('public')); // puts the public "online"
 
 const PORT = 8888;
 
 server.get('/', (req, res) => {
+    console.log(req);
     res.render('home.ejs');
 });
 
