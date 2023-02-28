@@ -1,0 +1,23 @@
+%h1.heading.fancy#friday Wow this is HAML
+
+/ this is a comment
+
+%h2= "hotdogs" * 15
+
+%h3= "Your lucky number is #{ @lucky }"
+
+%div.container
+    %p This is a nested paragraph
+    %p this is also nested
+    %p
+        %span here is a span inside a paragraph
+%p this is not nested
+
+%label
+    Number:
+    %input{:type => 'number', :placeholder => 'What is your favourite number?'}
+
+%ul
+    - %w( Groucho Harpo Chico Zeppo Gummo ).each do |brother|
+        %li= brother
+%p HAML knows when to close a block, based on your indentation.
