@@ -12,12 +12,12 @@ const Profile = () => {
     useEffect(() => {
         Github.getUserInfo(params.username).then((response) => setUserInfo(response.data));
         Github.getUserRepos(params.username).then((response) => setUserRepos(response.data));
-    }, []);
+    }, [params.username]);
 
     return (
         <div>
             <h2>Profile for { params.username }</h2>
-            <div>
+            <div style={ {'display': 'flex'} }>
                 <UserInfo info={ userInfo } />
                 <Repositories repos={ userRepos } />
             </div>
@@ -46,9 +46,21 @@ const UserInfo = (props) => {
 };
 
 const Repositories = (props) => {
+    if (props.repos === null) {
+        return (<div>Loading...</div>);
+    }
+
+    const userRepos = props.repos.map((r, i) => (
+        <li key={ i }>
+            { r.name }
+        </li>
+    ));
+
     return (
         <div>
-            repositories coming soon
+            <ul>
+                { userRepos }
+            </ul>
         </div>
     );
 };
