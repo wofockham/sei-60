@@ -9,7 +9,6 @@ server.use(express.static('public')); // puts the public "online"
 const PORT = 8888;
 
 server.get('/', (req, res) => {
-    console.log(req);
     res.render('home.ejs');
 });
 
